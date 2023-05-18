@@ -8,7 +8,7 @@ function cadastrarPokemon(){
         alert('Preencha todos os campos!')
         return;
     }
-    createPokemon(pokeTemp).required;
+    createPokemon(pokeTemp);
 }
 
 // var inputs = $('input').on('keyup', verificarInputs);
