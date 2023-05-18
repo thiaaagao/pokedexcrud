@@ -35,5 +35,5 @@ const createPokemon = (pokemon) => {
     setLocalStorage(dbPokemon)
 
 }
-
-const readPoke = () => getLocalStorage()
+/*
+const readPoke = () => getLocalStorage() */
