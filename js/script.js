@@ -3,13 +3,14 @@ function cadastrarPokemon(){
     pokeTemp.pokemon = document.getElementById("inputId").value;
     pokeTemp.tipo = document.getElementById("inputType").value;
 
-
     if (!pokeTemp.pokemon || !pokeTemp.tipo) {
         alert('Preencha todos os campos!')
         return;
     }
     createPokemon(pokeTemp);
 }
+
+
 
 // var inputs = $('input').on('keyup', verificarInputs);
 
@@ -20,20 +21,33 @@ function cadastrarPokemon(){
 
 
 const pokeTemp = {
-    pokemon: '',
-    tipo: ''
+    pokemon: 'dragonite',
+    tipo: 'fogo'
 }
 
-/* FUNCAO SET AND GET DB */
+// FUNCAO SET AND GET DB
 const getLocalStorage = () => JSON.parse(localStorage.getItem('db_pokemon')) ?? []
 const setLocalStorage = (dbPokemon) => localStorage.setItem('db_pokemon', JSON.stringify(dbPokemon))
 
-/* CREATE POKEMON */
+// C - CREATE POKEMON
 const createPokemon = (pokemon) => {
     const dbPokemon = getLocalStorage()
     dbPokemon.push (pokemon)
     setLocalStorage(dbPokemon)
-
 }
-/*
-const readPoke = () => getLocalStorage() */
+// R - READ POKE
+const readPoke = () => getLocalStorage()
+
+// U - UPDATE
+const updatePoke = (index, pokemon) => {
+    const dbPokemon = readPoke()
+    dbPokemon[index] = pokemon;
+    setLocalStorage(dbPokemon)
+}
+
+// D - DELETE
+const deletePoke = (index) => {
+    const dbPokemon = readPoke()
+    dbPokemon.slice(index, 1)
+    setLocalStorage(dbPokemon)
+}
