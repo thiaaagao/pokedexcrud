@@ -6,38 +6,46 @@
     <title>Pokedex - CRUD</title>
     <script defer src="./js/script.js"></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+    :root {
+        font-family: 'Poppins', sans-serif;
+    }
+</style>
 
 <body>
     <header>
-        <h1>Crud Pokedex</h1>
+        <h1><img src="./img/zangoose.gif" alt="pokemon zangoose" width="5%">Crud Pokedex</h1>
     </header>
     <main>
         <!-- Data pokemon -->
-        <img src="./img/zangoose.gif" alt="pokemon">
-
-        <div class="pokemondata">
-            <span class="pokemon-name"></span> -
-            <span class="pokemon-number"></span>
-        </div>
-
-        <form>
-            <input type="text" id="inputId" placeholder=" Nome do pokémon" required>
-            <input type="text" id="inputType" placeholder=" Tipo do pokémon" required>
-            <input type="button" value="Cadastrar Pokemon" onclick="cadastrarPokemon()">
-            <!-- resetar -->
-            <input type="reset" value="Limpar">
+        <hr>
+        <form id="formPokemon">
+            <input type="text" id="pokemonName" class="inputPokemon" placeholder=" Nome do pokémon" required>
+            <input type="text" id="pokemonType" class="inputPokemon" placeholder=" Tipo do pokémon" required>
+            <input type="button" id="Cadastro" value="Cadastrar Pokemon" onclick="cadastrarPokemon()">
         </form>
-        <table class="tablePoke">
+        <hr>
+        <table id="tablePokemon" style="border: 1px solid #000">
             <thead> <!-- TABLE EXAMPLE -->
                 <tr>
-                    <th>Nome</th>
-                    <th>Tipo</th>
-                </tr>
-                <tr>
-                    <td>Pikachu</td>
-                    <td>Eletrico</td>
+                    <p><img src="./img/pokedex.png" alt="pokedex">Pokédex</p>
+                    <th style="border: 1px solid #000">Número</th>
+                    <th style="border: 1px solid #000" required>Nome</th>
+                    <th style="border: 1px solid #000" required>Tipo</th>
+                    <th style="border: 1px solid #000">Ação</th>
                 </tr>
             </thead>
+            <tbody>
+              <!--   <tr>
+                    <td style="border: 1px solid #000">1</td>
+                    <td style="border: 1px solid #000">Pikachu</td>
+                    <td style="border: 1px solid #000">Eletrico</td>
+                    <td style="border: 1px solid #000"><input type="button" value="Editar Pokemon"> - <input
+                            type="button" value="Deletar Pokemon"></td>
+                </tr> -->
+            </tbody>
         </table>
     </main>
 </body>
