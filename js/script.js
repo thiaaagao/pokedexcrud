@@ -62,11 +62,12 @@ const deletePoke = (index) => {
 const createRow = (pokemon, index) => {
     const newRow = document.createElement('tr')
     newRow.innerHTML = `
-        <td style="border: 1px solid #000">${index+1}</td>
+        <td style="border: 1px solid #000">${index + 1}</td>
         <td style="border: 1px solid #000">${pokemon.nomePokemon}</td>
         <td style="border: 1px solid #000">${pokemon.tipo}</td>
-        <td style="border: 1px solid #000"><input type="button" value="Editar Pokemon"> - <input
-        type="button" value="Deletar Pokemon"></td>
+        <td style="border: 1px solid #000"><input type="button" id="edit-${index}" value="Editar Pokemon">&#124;<input
+        type="button" id="delete-${index}" value="Deletar Pokemon">
+        </td>
     `
     document.querySelector('#tablePokemon>tbody').appendChild(newRow)
     // id="tablePokemon"
@@ -87,8 +88,22 @@ const updateTable = () => {
 
 updateTable()
 
+const editDeletePoke = (event) => {
+    if (event.target.type == 'button'){
+
+        const [action, index] = event.target.id.split('-')
+        if(action == 'edit'){
+            console.log('editando pokemon')
+        }else{
+            console.log('deletando pokemon')
+        }
+        //console.log(index, action)
+
+    }
+
+}
 // Events
-// document.querySelector('#tablePokemon>tbody').addEventListener('click', deletePoke)
+document.querySelector('#tablePokemon>tbody').addEventListener('click', editDeletePoke)
 
 //anotações-Adam
 //data-action="delete"
