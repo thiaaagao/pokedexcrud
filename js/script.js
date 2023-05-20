@@ -1,16 +1,15 @@
-// id = formPokemon
+// VALIDATION INPUTS
 const isValidInputId = () => {
     return document.getElementById("formPokemon").reportValidity();
 }
 
-
-// id="pokemonName"
-// id="pokemonType"
+// CLEAR INPUTS
 const clearInputs = () => {
     const inputs = document.querySelectorAll('.inputPokemon') // reset inputs blank
     inputs.forEach(input => input.value = '')
 }
 
+// SIGN UP - POKEMON
 const cadastrarPokemon = () => {
     if (isValidInputId()) {
         const pokemon = {
@@ -23,17 +22,12 @@ const cadastrarPokemon = () => {
     }
 }
 
-
-/* ESSA MERDA VAI SAIR ! */
-const pokeTemp = {
-    nomePokemon: 'dragonite',
-    tipo: 'dragao'
-}
-
-// FUNCAO SET AND GET DB
+// FUNCAO SET AND GET DB (CRUD - DBPOKEMON)
 const getLocalStorage = () => JSON.parse(localStorage.getItem('db_pokemon')) ?? [] // parse in JSON STRING
 const setLocalStorage = (dbPokemon) => localStorage.setItem('db_pokemon', JSON.stringify(dbPokemon))
 
+
+// CRUD - DBPOKEMON
 // C - CREATE POKEMON DB
 const createPokemon = (pokemon) => {
     const dbPokemon = getLocalStorage()
@@ -43,6 +37,9 @@ const createPokemon = (pokemon) => {
 
 // R - READ POKE DB
 const readPoke = () => getLocalStorage()
+
+// S - SET POKE DB
+// const setPoke = () => setLocalStorage()
 
 // U - UPDATE DB
 const updatePoke = (index, pokemon) => {
@@ -57,8 +54,10 @@ const deletePoke = (index) => {
     dbPokemon.splice(index, 1)
     setLocalStorage(dbPokemon)
 }
+// CRUD - DBPOKEMON
 
-// create row
+
+// TABLE POKEMON
 const createRow = (pokemon, index) => {
     const newRow = document.createElement('tr')
     newRow.innerHTML = `
@@ -77,6 +76,8 @@ const createRow = (pokemon, index) => {
 const clearTable = () => {
     const rows = document.querySelectorAll('#tablePokemon>tbody tr');
     rows.forEach(row => row.parentNode.removeChild(row))
+    // document.querySelector('#tablePokemon>tbody').innerHTML=''
+
 }
 
 // update table
@@ -87,23 +88,56 @@ const updateTable = () => {
 }
 
 updateTable()
+// TABLE POKEMON
 
+// BUTTON EDIT AND DELETE POKEMON
 const editDeletePoke = (event) => {
-    if (event.target.type == 'button'){
+    if (event.target.type == 'button') {
 
         const [action, index] = event.target.id.split('-')
-        if(action == 'edit'){
-            console.log('editando pokemon')
-        }else{
+        if (action == 'edit') {
+            editPoke(index)
+        } else {
             console.log('deletando pokemon')
         }
-        //console.log(index, action)
+        console.log(index, action)
 
     }
 
 }
-// Events
+
+const fillFields = (pokemon) => {
+    document.getElementById('pokemonName').value = pokemon.nomePokemon
+    document.getElementById('pokemonType').value = pokemon.tipo
+    console.log(savePoke())
+    // console.log(pokemon)
+}
+
+
+const editPoke = (index) => {
+    const pokemon = readPoke()[index]
+    fillFields(pokemon)
+    openButton()
+}
+// BUTTON EDIT AND DELETE POKEMON
+// Open the Save Button!!! FINALLY!
+const openButton = () => {
+    document.getElementById('updatePoke').removeAttribute('disabled');
+    document.getElementById('Cadastro').setAttribute('disabled','disabled');
+}
+const savePoke = (index) => {
+    //document.getElementById('Cadastro').removeAttribute('disabled');
+    //document.getElementById('updatePoke').setAttribute('disabled','disabled');
+    // updatePoke(index)
+    console.log(index)
+    // setPoke(pokemon)
+    // setPoke(pokemon)[index] = pokemon.value;
+    // clearInputs()
+}
+
+// EVENTS
 document.querySelector('#tablePokemon>tbody').addEventListener('click', editDeletePoke)
+document.getElementById('updatePoke').addEventListener('click', savePoke)
 
 //anotações-Adam
 //data-action="delete"
