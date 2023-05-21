@@ -38,9 +38,6 @@ const createPokemon = (pokemon) => {
 // R - READ POKE DB
 const readPoke = () => getLocalStorage()
 
-// S - SET POKE DB
-// const setPoke = () => setLocalStorage()
-
 // U - UPDATE DB
 const updatePoke = (index, pokemon) => {
     const dbPokemon = readPoke()
@@ -98,9 +95,17 @@ const editDeletePoke = (event) => {
         if (action == 'edit') {
             editPoke(index)
         } else {
-            console.log('deletando pokemon')
+            const pokemon = readPoke()[index]
+            const response = confirm(`Deseja remover o (toUpperCase.${pokemon.nomePokemon}) da pokedex ?`)
+            if (!!response) {
+            deletePoke(index)
+            updateTable()
+            // console.log('deletando pokemon')
+            }
+
+
         }
-        console.log(index, action)
+        // console.log(index, action)
 
     }
 
@@ -109,7 +114,6 @@ const editDeletePoke = (event) => {
 const fillFields = (pokemon) => {
     document.getElementById('pokemonName').value = pokemon.nomePokemon
     document.getElementById('pokemonType').value = pokemon.tipo
-    console.log(savePoke())
     // console.log(pokemon)
 }
 
@@ -123,16 +127,12 @@ const editPoke = (index) => {
 // Open the Save Button!!! FINALLY!
 const openButton = () => {
     document.getElementById('updatePoke').removeAttribute('disabled');
-    document.getElementById('Cadastro').setAttribute('disabled','disabled');
+    document.getElementById('Cadastro').setAttribute('disabled', 'disabled');
 }
-const savePoke = (index) => {
-    //document.getElementById('Cadastro').removeAttribute('disabled');
-    //document.getElementById('updatePoke').setAttribute('disabled','disabled');
-    // updatePoke(index)
-    console.log(index)
-    // setPoke(pokemon)
-    // setPoke(pokemon)[index] = pokemon.value;
-    // clearInputs()
+const savePoke = () => {
+    document.getElementById('Cadastro').removeAttribute('disabled');
+    document.getElementById('updatePoke').setAttribute('disabled', 'disabled');
+    updatePoke()
 }
 
 // EVENTS
