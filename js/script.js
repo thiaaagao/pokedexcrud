@@ -2,8 +2,7 @@ let indexPokemon = null
 
 // VALIDATION INPUTS
 const isValidInputId = () => {
-    alert('Você não inseriu dados sobre o pokemon !')
-    return document.getElementById("formPokemon").reportValidity();
+return document.getElementById("formPokemon").reportValidity();
 }
 
 // CLEAR INPUTS
