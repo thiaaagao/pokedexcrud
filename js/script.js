@@ -1,3 +1,5 @@
+let indexPokemon = null
+
 // VALIDATION INPUTS
 const isValidInputId = () => {
     return document.getElementById("formPokemon").reportValidity();
@@ -37,9 +39,6 @@ const createPokemon = (pokemon) => {
 
 // R - READ POKE DB
 const readPoke = () => getLocalStorage()
-
-// S - SET POKE DB
-// const setPoke = () => setLocalStorage()
 
 // U - UPDATE DB
 const updatePoke = (index, pokemon) => {
@@ -97,10 +96,19 @@ const editDeletePoke = (event) => {
         const [action, index] = event.target.id.split('-')
         if (action == 'edit') {
             editPoke(index)
+            indexPokemon = index  //indice buscar a posicao do pokemon
         } else {
-            console.log('deletando pokemon')
+            const pokemon = readPoke()[index]
+            const response = confirm(`Deseja remover o ${pokemon.nomePokemon} da pokedex ?`)
+            if (!!response) {
+            deletePoke(index)
+            updateTable()
+            // console.log('deletando pokemon')
+            }
+
+
         }
-        console.log(index, action)
+        // console.log(index, action)
 
     }
 
@@ -109,30 +117,29 @@ const editDeletePoke = (event) => {
 const fillFields = (pokemon) => {
     document.getElementById('pokemonName').value = pokemon.nomePokemon
     document.getElementById('pokemonType').value = pokemon.tipo
-    console.log(savePoke())
-    // console.log(pokemon)
-}
 
+}
 
 const editPoke = (index) => {
     const pokemon = readPoke()[index]
     fillFields(pokemon)
     openButton()
 }
+
 // BUTTON EDIT AND DELETE POKEMON
 // Open the Save Button!!! FINALLY!
 const openButton = () => {
     document.getElementById('updatePoke').removeAttribute('disabled');
-    document.getElementById('Cadastro').setAttribute('disabled','disabled');
+    document.getElementById('Cadastro').setAttribute('disabled', 'disabled');
 }
-const savePoke = (index) => {
-    //document.getElementById('Cadastro').removeAttribute('disabled');
-    //document.getElementById('updatePoke').setAttribute('disabled','disabled');
-    // updatePoke(index)
-    console.log(index)
-    // setPoke(pokemon)
-    // setPoke(pokemon)[index] = pokemon.value;
-    // clearInputs()
+const closeButton = () => {
+    document.getElementById('Cadastro').removeAttribute('disabled');
+    document.getElementById('updatePoke').setAttribute('disabled', 'disabled');
+}
+const savePoke = () => {
+    const pokemon = readPoke()[indexPokemon]
+    console.log(indexPokemon, pokemon.nomePokemon)
+    // closeButton()
 }
 
 // EVENTS
