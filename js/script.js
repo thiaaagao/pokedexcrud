@@ -1,3 +1,5 @@
+let indexPokemon = null
+
 // VALIDATION INPUTS
 const isValidInputId = () => {
     return document.getElementById("formPokemon").reportValidity();
@@ -94,9 +96,10 @@ const editDeletePoke = (event) => {
         const [action, index] = event.target.id.split('-')
         if (action == 'edit') {
             editPoke(index)
+            indexPokemon = index  //indice buscar a posicao do pokemon
         } else {
             const pokemon = readPoke()[index]
-            const response = confirm(`Deseja remover o (toUpperCase.${pokemon.nomePokemon}) da pokedex ?`)
+            const response = confirm(`Deseja remover o ${pokemon.nomePokemon} da pokedex ?`)
             if (!!response) {
             deletePoke(index)
             updateTable()
@@ -114,25 +117,29 @@ const editDeletePoke = (event) => {
 const fillFields = (pokemon) => {
     document.getElementById('pokemonName').value = pokemon.nomePokemon
     document.getElementById('pokemonType').value = pokemon.tipo
-    // console.log(pokemon)
-}
 
+}
 
 const editPoke = (index) => {
     const pokemon = readPoke()[index]
     fillFields(pokemon)
     openButton()
 }
+
 // BUTTON EDIT AND DELETE POKEMON
 // Open the Save Button!!! FINALLY!
 const openButton = () => {
     document.getElementById('updatePoke').removeAttribute('disabled');
     document.getElementById('Cadastro').setAttribute('disabled', 'disabled');
 }
-const savePoke = () => {
+const closeButton = () => {
     document.getElementById('Cadastro').removeAttribute('disabled');
     document.getElementById('updatePoke').setAttribute('disabled', 'disabled');
-    updatePoke()
+}
+const savePoke = () => {
+    const pokemon = readPoke()[indexPokemon]
+    console.log(indexPokemon, pokemon.nomePokemon)
+    // closeButton()
 }
 
 // EVENTS
