@@ -2,6 +2,7 @@ let indexPokemon = null
 
 // VALIDATION INPUTS
 const isValidInputId = () => {
+    alert('Você não inseriu dados sobre o pokemon !')
     return document.getElementById("formPokemon").reportValidity();
 }
 
@@ -123,7 +124,6 @@ const fillFields = (pokemon) => {
 
 const editPoke = (index) => {
     const pokemon = readPoke()[index]
-    //pokemon.index = index
     fillFields(pokemon)
     openButton()
 }
@@ -153,15 +153,14 @@ const fillPoke = () => {
         return pokemon
     }
     return {
-        nomePokemon: ' ',
-        tipo: ' '
+        nomePokemon: '',
+        tipo: ''
     };
-
 }
 
 const savePoke = () => {
     pokemon = fillPoke()
-    if (pokemon.nomePokemon == ' ') {
+    if (pokemon.nomePokemon == '') {
         alert('Você não inseriu dados !')
     } else {
         updatePoke(indexPokemon, pokemon)
