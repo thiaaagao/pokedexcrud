@@ -106,15 +106,12 @@ const editDeletePoke = (event) => {
             const pokemon = readPoke()[index]
             const response = confirm(`Deseja remover o ${pokemon.nomePokemon} da pokedex ?`)
             if (!!response) {
-            deletePoke(index)
-            updateTable()
-            // console.log('deletando pokemon')
+                deletePoke(index)
+                updateTable()
+                // console.log('deletando pokemon')
             }
-
-
         }
         // console.log(index, action)
-
     }
 
 }
@@ -122,15 +119,13 @@ const editDeletePoke = (event) => {
 const fillFields = (pokemon) => {
     document.getElementById('pokemonName').value = pokemon.nomePokemon
     document.getElementById('pokemonType').value = pokemon.tipo
-
 }
 
 const editPoke = (index) => {
     const pokemon = readPoke()[index]
-    pokemon.index = indexPokemon
+    //pokemon.index = index
     fillFields(pokemon)
     openButton()
-
 }
 
 // BUTTON EDIT AND DELETE POKEMON
@@ -146,17 +141,39 @@ const closeButton = () => {
     document.getElementById('cancelUpdatepoke').setAttribute('type', 'hidden');
     clearInputs()
 }
-const savePoke = (pokemon) => {
-    updatePoke(indexPokemon, pokemon)
-    updateTable()
-    closeButton()
 
+const fillPoke = () => {
+    const nomePokemon = document.getElementById('pokemonName').value
+    const tipo = document.getElementById('pokemonType').value
+    const pokemon = {
+        nomePokemon,
+        tipo
+    }
+    if (!!nomePokemon && !!tipo) {
+        return pokemon
+    }
+    return {
+        nomePokemon: ' ',
+        tipo: ' '
+    };
+
+}
+
+const savePoke = () => {
+    pokemon = fillPoke()
+    if (pokemon.nomePokemon == ' ') {
+        alert('Você não inseriu dados !')
+    } else {
+        updatePoke(indexPokemon, pokemon)
+        updateTable()
+        closeButton()
+    }
 }
 
 // EVENTS
 document.querySelector('#tablePokemon>tbody').addEventListener('click', editDeletePoke)
-document.getElementById('updatePoke').addEventListener('click', editPoke)
-document.getElementById('cancelUpdatepoke').addEventListener('click', closeButton)
+document.querySelector('#updatePoke').addEventListener('click', savePoke)
+document.querySelector('#cancelUpdatepoke').addEventListener('click', closeButton)
 
 //anotações-Adam
 //data-action="delete"
