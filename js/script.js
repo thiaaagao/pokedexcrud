@@ -24,10 +24,10 @@ const savePokemon = () => {
     }
 }
 
-const pokeTemp = {
+/*  const pokeTemp = {
     nomePokemon: 'dragonite',
     tipo: 'dragao'
-}
+}*/
 
 // FUNCAO SET AND GET DB (CRUD - DBPOKEMON)
 const getLocalStorage = () => JSON.parse(localStorage.getItem('db_pokemon')) ?? [] // parse in JSON STRING
