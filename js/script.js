@@ -2,6 +2,7 @@ let indexPokemon = null
 
 // VALIDATION INPUTS
 const isValidInputId = () => {
+    alert('Você não inseriu dados sobre o pokemon !')
     return document.getElementById("formPokemon").reportValidity();
 }
 
@@ -12,7 +13,7 @@ const clearInputs = () => {
 }
 
 // SIGN UP - POKEMON
-const cadastrarPokemon = () => {
+const savePokemon = () => {
     if (isValidInputId()) {
         const pokemon = {
             nomePokemon: document.getElementById("pokemonName").value,
@@ -22,6 +23,11 @@ const cadastrarPokemon = () => {
         clearInputs()
         updateTable()
     }
+}
+
+const pokeTemp = {
+    nomePokemon: 'dragonite',
+    tipo: 'dragao'
 }
 
 // FUNCAO SET AND GET DB (CRUD - DBPOKEMON)
@@ -101,15 +107,12 @@ const editDeletePoke = (event) => {
             const pokemon = readPoke()[index]
             const response = confirm(`Deseja remover o ${pokemon.nomePokemon} da pokedex ?`)
             if (!!response) {
-            deletePoke(index)
-            updateTable()
-            // console.log('deletando pokemon')
+                deletePoke(index)
+                updateTable()
+                // console.log('deletando pokemon')
             }
-
-
         }
         // console.log(index, action)
-
     }
 
 }
@@ -117,7 +120,6 @@ const editDeletePoke = (event) => {
 const fillFields = (pokemon) => {
     document.getElementById('pokemonName').value = pokemon.nomePokemon
     document.getElementById('pokemonType').value = pokemon.tipo
-
 }
 
 const editPoke = (index) => {
@@ -129,22 +131,48 @@ const editPoke = (index) => {
 // BUTTON EDIT AND DELETE POKEMON
 // Open the Save Button!!! FINALLY!
 const openButton = () => {
-    document.getElementById('updatePoke').removeAttribute('disabled');
-    document.getElementById('Cadastro').setAttribute('disabled', 'disabled');
+    document.getElementById('updatePoke').setAttribute("type", "button");
+    document.getElementById('cancelUpdatepoke').setAttribute('type', 'button');
+    document.getElementById('Cadastro').setAttribute('type', 'hidden');
 }
 const closeButton = () => {
-    document.getElementById('Cadastro').removeAttribute('disabled');
-    document.getElementById('updatePoke').setAttribute('disabled', 'disabled');
+    document.getElementById('Cadastro').setAttribute('type', 'button');
+    document.getElementById('updatePoke').setAttribute('type', 'hidden');
+    document.getElementById('cancelUpdatepoke').setAttribute('type', 'hidden');
+    clearInputs()
 }
+
+const fillPoke = () => {
+    const nomePokemon = document.getElementById('pokemonName').value
+    const tipo = document.getElementById('pokemonType').value
+    const pokemon = {
+        nomePokemon,
+        tipo
+    }
+    if (!!nomePokemon && !!tipo) {
+        return pokemon
+    }
+    return {
+        nomePokemon: '',
+        tipo: ''
+    };
+}
+
 const savePoke = () => {
-    const pokemon = readPoke()[indexPokemon]
-    console.log(indexPokemon, pokemon.nomePokemon)
-    // closeButton()
+    pokemon = fillPoke()
+    if (pokemon.nomePokemon == '') {
+        alert('Você não inseriu dados !')
+    } else {
+        updatePoke(indexPokemon, pokemon)
+        updateTable()
+        closeButton()
+    }
 }
 
 // EVENTS
 document.querySelector('#tablePokemon>tbody').addEventListener('click', editDeletePoke)
-document.getElementById('updatePoke').addEventListener('click', savePoke)
+document.querySelector('#updatePoke').addEventListener('click', savePoke)
+document.querySelector('#cancelUpdatepoke').addEventListener('click', closeButton)
 
 //anotações-Adam
 //data-action="delete"
