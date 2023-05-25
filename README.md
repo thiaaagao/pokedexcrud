@@ -3,7 +3,7 @@
 
 Aplicação com o conceito de CRUD (Create, Read, Update & Delete) utilizando HTML e Javascript, criando uma POKEDEX.
 
-
+Aplicação: https://thiaaagao.github.io/pokedexcrud/
 
 ## Instalação
 
